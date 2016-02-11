@@ -1,0 +1,4 @@
+On Kubernetes master, the following directories must exist
+
+/etc/kubernetes/manifest
+/srv/kubernetes/manifest
