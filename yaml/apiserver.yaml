@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  hostNetwork: true
+  containers:
+  - name: kube-apiserver
+    image: haih/k8sm:latest
+    command:
+    - apiserver
+    - --bind-address=0.0.0.0
+    - --insecure-bind-address=127.0.0.1
+    - --etcd-servers=10.143.100.209:4001
+    - --allow-privileged=true
+    - --service-cluster-ip-range=10.10.10.0/24
+    - --secure-port=443
+    - --insecure-port=8080
+    - --advertise-address=10.143.100.209
+    - --admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota
+    ports:
+    - containerPort: 443
+      hostPort: 443
+      name: https
+    - containerPort: 8080
+      hostPort: 8080
+      name: local
