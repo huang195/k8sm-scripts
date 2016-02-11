@@ -1,2 +1,2 @@
 #!/bin/bash
-killall -9 lt-mesos-master
+killall -9 mesos-master
