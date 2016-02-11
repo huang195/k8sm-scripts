@@ -21,3 +21,4 @@ cd build
 ../configure
 make -j 4 -V=0
 make install
+ldconfig
