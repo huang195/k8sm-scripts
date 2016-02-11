@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-scheduler
+  namespace: kube-system
+spec:
+  hostNetwork: true
+  containers:
+  - name: kube-scheduler
+    image: haih/k8sm:latest
+    command:
+    - /opt/kubernetes/km
+    - scheduler
+    - --mesos-master=10.143.100.209:5050
+    - --etcd-servers=http://10.143.100.209:4001
+    - --api-servers=10.143.100.209:8080
