@@ -6,4 +6,4 @@ MESOS_MASTER_PORT=5050
 
 # Start mesos slave
 mkdir -p /var/log/mesos
-mesos-slave --master=${MESOS_MASTER_IPADDR}:${MESOS_MASTER_PORT} 1>/var/log/mesos/slave.log 2>&1 &
+$HOME/mesos/build/bin/mesos-slave.sh --master=${MESOS_MASTER_IPADDR}:${MESOS_MASTER_PORT} 1>/var/log/mesos/slave.log 2>&1 &
