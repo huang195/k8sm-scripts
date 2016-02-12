@@ -13,4 +13,6 @@ kubelet \
   --api_servers=http://127.0.0.1:8080 \
   --register-node=false \
   --allow-privileged=true \
-  --config=/etc/kubernetes/manifests
+  --config=/etc/kubernetes/manifests \
+  --v=0 \
+  1>kubelet.log 2>&1 &
