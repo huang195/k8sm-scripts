@@ -5,9 +5,10 @@
 mkdir -p /etc/kubernetes/manifests
 mkdir -p /srv/kubernetes/manifests
 
-cp yaml/scheduler.yaml /etc/kubernetes/manifests/
 cp yaml/apiserver.yaml /etc/kubernetes/manifests/
-cp yaml/controller-mgr.yaml /etc/kubernetes/manifests/
+cp yaml/podmaster.yaml /etc/kubernetes/manifests/
+cp yaml/controller-mgr.yaml /srv/kubernetes/manifests/
+cp yaml/scheduler.yaml /srv/kubernetes/manifests/
 
 kubelet \
   --api_servers=http://127.0.0.1:8080 \
