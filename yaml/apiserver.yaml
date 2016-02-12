@@ -11,6 +11,7 @@ spec:
     command:
     - /opt/kubernetes/km
     - apiserver
+    - --address=10.143.100.209
     - --bind-address=0.0.0.0
     - --insecure-bind-address=0.0.0.0
     - --etcd-servers=http://10.143.100.209:4001
