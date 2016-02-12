@@ -1,20 +1,28 @@
 apiVersion: v1
-kind: Pod
+kind: ReplicationController
 metadata:
-  name: guestbook
+  name: guestbookcontroller
 spec:
-  containers:
-  - name: redis
-    image: redis
-  - name: guestbook
-    image: google/guestbook-python-redis
-    ports:
-    - name: www
-      containerPort: 80
-    volumeMounts:
-      - mountPath: /hosttmp
-        name: data
-  volumes:
-    - name: data
-      hostPath:
-        path: /tmp
+  replicas: 1
+  selector:
+    app: guestbook
+  template:
+    metadata:
+      labels:
+        app: guestbook
+    spec:
+      containers:
+      - name: redis
+        image: redis
+      - name: guestbook
+        image: google/guestbook-python-redis
+        ports:
+        - name: www
+          containerPort: 80
+        volumeMounts:
+          - mountPath: /hosttmp
+            name: data
+      volumes:
+        - name: data
+          hostPath:
+            path: /tmp
