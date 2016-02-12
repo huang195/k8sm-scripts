@@ -10,7 +10,7 @@ cp yaml/podmaster.yaml /etc/kubernetes/manifests/
 cp yaml/controller-mgr.yaml /srv/kubernetes/manifests/
 cp yaml/scheduler.yaml /srv/kubernetes/manifests/
 
-cat <<EOF >mesos-cloud.conf
+cat <<EOF >/etc/kubernetes/mesos-cloud.conf
 [mesos-cloud]
         mesos-master        = 10.143.100.209
 EOF
