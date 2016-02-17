@@ -11,6 +11,7 @@ spec:
     command:
     - /opt/kubernetes/km
     - scheduler
+    - --address=10.143.100.209
     - --mesos-master=10.143.100.209:5050
     - --etcd-servers=http://10.143.100.209:4001
-    - --api-servers=10.143.100.209:8080
+    - --api-servers=127.0.0.1:8080
