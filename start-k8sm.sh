@@ -12,7 +12,7 @@ cp yaml/scheduler.yaml /srv/kubernetes/manifests/
 
 cat <<EOF >/etc/kubernetes/mesos-cloud.conf
 [mesos-cloud]
-        mesos-master        = 10.143.100.209
+        mesos-master        = 10.143.100.209:5050
 EOF
 
 mkdir -p /var/log/kubernetes
