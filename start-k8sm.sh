@@ -15,10 +15,11 @@ cat <<EOF >/etc/kubernetes/mesos-cloud.conf
         mesos-master        = 10.143.100.209
 EOF
 
+mkdir -p /var/log/kubernetes
 kubelet \
   --api_servers=http://127.0.0.1:8080 \
   --register-node=false \
   --allow-privileged=true \
   --config=/etc/kubernetes/manifests \
   --v=0 \
-  1>kubelet.log 2>&1 &
+  1>/var/log/kubernetes/kubelet.log 2>&1 &
