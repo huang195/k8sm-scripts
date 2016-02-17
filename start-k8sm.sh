@@ -49,7 +49,7 @@ EOF
 
 # Create podmaster template file
 cat <<EOF > /etc/kubernetes/manifests/podmaster.yaml
-piVersion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   name: kube-podmaster
@@ -144,7 +144,7 @@ spec:
   - hostPath:
       path: /etc/kubernetes
     name: kubernetes-config
-EOF 
+EOF
 
 cat <<EOF >/etc/kubernetes/mesos-cloud.conf
 [mesos-cloud]
