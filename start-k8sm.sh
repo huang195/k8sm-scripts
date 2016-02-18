@@ -151,6 +151,7 @@ cat <<EOF >/etc/kubernetes/mesos-cloud.conf
         mesos-master        = ${MESOS_IP}:${MESOS_PORT}
 EOF
 
+# Start kubelet so it picks up these template files
 mkdir -p /var/log/kubernetes
 kubelet \
   --api_servers=http://127.0.0.1:${K8S_INSECURE_PORT} \
@@ -159,3 +160,6 @@ kubelet \
   --config=/etc/kubernetes/manifests \
   --v=0 \
   1>/var/log/kubernetes/kubelet.log 2>&1 &
+
+# Add namespace kube-system
+#curl -XPOST -d'{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"kube-system"}}' "http://127.0.0.1:8080/api/v1/namespaces"
