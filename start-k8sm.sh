@@ -119,7 +119,7 @@ spec:
     - --mesos-master=${MESOS_IP}:${MESOS_PORT}
     - --etcd-servers=http://${ETCD_IP}:${ETCD_PORT}
     - --api-servers=${K8S_NGINX_IP}:${K8S_NGINX_INSECURE_PORT}
-	- --v=0
+    - --v=0
 EOF
 
 # Create controller manager template file
