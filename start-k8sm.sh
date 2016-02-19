@@ -6,6 +6,9 @@
 mkdir -p /etc/kubernetes/manifests
 mkdir -p /srv/kubernetes/manifests
 
+# Create kubernetes logs directory
+mkdir -p /var/log/kubernetes
+
 # Create apiserver template file
 cat <<EOF > /etc/kubernetes/manifests/apiserver.yaml
 apiVersion: v1
@@ -116,6 +119,7 @@ spec:
     - --mesos-master=${MESOS_IP}:${MESOS_PORT}
     - --etcd-servers=http://${ETCD_IP}:${ETCD_PORT}
     - --api-servers=${K8S_NGINX_IP}:${K8S_NGINX_INSECURE_PORT}
+	- --v=0
 EOF
 
 # Create controller manager template file
@@ -152,7 +156,6 @@ cat <<EOF >/etc/kubernetes/mesos-cloud.conf
 EOF
 
 # Start kubelet so it picks up these template files
-mkdir -p /var/log/kubernetes
 kubelet \
   --api_servers=http://127.0.0.1:${K8S_INSECURE_PORT} \
   --register-node=false \
