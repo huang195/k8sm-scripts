@@ -162,5 +162,6 @@ kubelet \
   --file-check-frequency=5s \
   1>/var/log/kubernetes/kubelet.log 2>&1 &
 
+# Todo: Need to add a wait for api server to be up before curl command
 # Add namespace kube-system
-curl -XPOST -d'{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"kube-system"}}' "http://127.0.0.1:${K8S_INSECURE_PORT}/api/v1/namespaces"
+#curl -XPOST -d'{"apiVersion":"v1","kind":"Namespace","metadata":{"name":"kube-system"}}' "http://127.0.0.1:${K8S_INSECURE_PORT}/api/v1/namespaces"
