@@ -38,3 +38,14 @@ To stop k8sm cluster
 3. Optionally stop mesos
 	- On master: `./stop-mesos-master.sh`
 	- On slaves: `./stop-mesos-slave.sh`
+
+Notes
+=====
+
+When starting k8sm scheduler, one can pass a list of api servers as one of its parameters, which will be used by
+the scheduler to pass it onto the executor/kubelet so it can communicate with the k8sm master. One could potentially
+pass the nginx ip/port to the scheduler instead of the list of api servers, but I couldn't get this to work as 
+executor/kubelet uses watch for oom events, and watch operation over http is a streaming operation which always 
+results in nginx timing out. Unless nginx can be configured to be used as a proxy that supports http streaming,
+one should pass a list of api servers to the k8sm scheduler. However, nginx is still useful for kubectl or any
+client of k8sm to use to deal with k8s master component failures.

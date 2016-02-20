@@ -118,7 +118,7 @@ spec:
     - --address=${NODE_IP}
     - --mesos-master=${MESOS_IP}:${MESOS_PORT}
     - --etcd-servers=http://${ETCD_IP}:${ETCD_PORT}
-    - --api-servers=${K8S_NGINX_IP}:${K8S_NGINX_INSECURE_PORT}
+    - --api-servers=10.143.100.209:${K8S_INSECURE_PORT},10.143.100.219:${K8S_INSECURE_PORT}
     - --v=0
 EOF
 
