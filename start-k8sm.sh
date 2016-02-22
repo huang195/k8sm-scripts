@@ -118,7 +118,7 @@ spec:
     - /opt/kubernetes/km
     - scheduler
     - --address=${NODE_IP}
-	- --advertised-address=${K8S_NGINX_IP}:${K8S_NGINX_SCHEDULER_PORT}
+    - --advertised-address=${K8S_NGINX_IP}:${K8S_NGINX_SCHEDULER_PORT}
     - --mesos-master=${MESOS_IP}:${MESOS_PORT}
     - --etcd-servers=http://${ETCD_IP}:${ETCD_PORT}
     - --api-servers=${K8S_NGINX_IP}:${K8S_NGINX_INSECURE_PORT}
