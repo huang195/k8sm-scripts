@@ -21,6 +21,7 @@ spec:
   containers:
   - name: kube-apiserver
     image: haih/k8sm:latest
+    imagePullPolicy: IfNotPresent
     command:
     - /opt/kubernetes/km
     - apiserver
@@ -112,14 +113,16 @@ spec:
   containers:
   - name: kube-scheduler
     image: haih/k8sm:latest
+    imagePullPolicy: IfNotPresent
     command:
     - /opt/kubernetes/km
     - scheduler
     - --address=${NODE_IP}
+	- --advertised-address=${K8S_NGINX_IP}:${K8S_NGINX_SCHEDULER_PORT}
     - --mesos-master=${MESOS_IP}:${MESOS_PORT}
     - --etcd-servers=http://${ETCD_IP}:${ETCD_PORT}
-    - --api-servers=10.143.100.209:${K8S_INSECURE_PORT},10.143.100.219:${K8S_INSECURE_PORT}
-    - --v=0
+    - --api-servers=${K8S_NGINX_IP}:${K8S_NGINX_INSECURE_PORT}
+    - --v=10
 EOF
 
 # Create controller manager template file
@@ -134,6 +137,7 @@ spec:
   containers:
   - name: kube-controller-manager
     image: haih/k8sm:latest
+    imagePullPolicy: IfNotPresent
     command:
     - /opt/kubernetes/km
     - controller-manager
