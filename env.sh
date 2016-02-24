@@ -11,7 +11,6 @@ MESOS_PORT=5050
 # Points to nginx that proxies ETCD nodes
 ETCD_IP=10.143.100.209
 ETCD_PORT=4001
-ETCD_PEER_PORT=7001
 
 # Points to nginx that proxies KUBERNETES masters
 K8S_IP=$NODE_IP
