@@ -31,6 +31,7 @@ spec:
     - --allow-privileged=true
     - --service-cluster-ip-range=10.10.10.0/24
     - --secure-port=${K8S_SECURE_PORT}
+    - --insecure-port=${K8S_INSECURE_PORT}
     - --cloud-provider=mesos
     - --cloud-config=/etc/kubernetes/mesos-cloud.conf
     - --advertise-address=${NODE_IP}
@@ -118,10 +119,10 @@ spec:
     - /opt/kubernetes/km
     - scheduler
     - --address=${NODE_IP}
-    - --advertised-address=${K8S_NGINX_IP}:${K8S_NGINX_SCHEDULER_PORT}
+    - --advertised-address=${NGINX_IP}:${NGINX_SCHEDULER_PORT}
     - --mesos-master=${MESOS_IP}:${MESOS_PORT}
     - --etcd-servers=http://${ETCD_IP}:${ETCD_PORT}
-    - --api-servers=${K8S_NGINX_IP}:${K8S_NGINX_INSECURE_PORT}
+    - --api-servers=${NGINX_IP}:${NGINX_APISERVER_PORT}
     - --v=10
 EOF
 
@@ -141,7 +142,7 @@ spec:
     command:
     - /opt/kubernetes/km
     - controller-manager
-    - --master=http://127.0.0.1:8080
+    - --master=http://${NGINX_IP}:${NGINX_APISERVER_PORT}
     - --cloud-provider=mesos
     - --cloud-config=/etc/kubernetes/mesos-cloud.conf
     volumeMounts:
