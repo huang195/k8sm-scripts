@@ -9,6 +9,12 @@ mkdir -p /srv/kubernetes/manifests
 # Create kubernetes logs directory
 mkdir -p /var/log/kubernetes
 
+# Create kubernetes certs directory
+mkdir -p /var/run/kubernetes/
+
+# Place kubeconfig files
+cp kubeconfigs/* /etc/kubernetes/
+
 # Create apiserver template file
 cat <<EOF > /etc/kubernetes/manifests/apiserver.yaml
 apiVersion: v1
@@ -35,6 +41,10 @@ spec:
     - --cloud-provider=mesos
     - --cloud-config=/etc/kubernetes/mesos-cloud.conf
     - --advertise-address=${NODE_IP}
+    - --tls-cert-file=/var/run/kubernetes/apiserver.pem
+    - --tls-private-key-file=/var/run/kubernetes/apiserver-key.pem
+    - --client-ca-file=/var/run/kubernetes/ca.pem
+    - --v=0
     ports:
     - containerPort: ${K8S_SECURE_PORT}
       hostPort: ${K8S_SECURE_PORT}
@@ -46,10 +56,16 @@ spec:
     - mountPath: /etc/kubernetes
       name: kubernetes-config
       readOnly: true
+    - mountPath: /var/run/kubernetes
+      name: kubernetes-certs
+      readOnly: true
   volumes:
   - hostPath:
       path: /etc/kubernetes
     name: kubernetes-config
+  - hostPath:
+      path: /var/run/kubernetes
+    name: kubernetes-certs
 EOF
 
 # Create podmaster template file
@@ -122,8 +138,23 @@ spec:
     - --advertised-address=${NGINX_IP}:${NGINX_SCHEDULER_PORT}
     - --mesos-master=${MESOS_IP}:${MESOS_PORT}
     - --etcd-servers=http://${ETCD_IP}:${ETCD_PORT}
-    - --api-servers=${NGINX_IP}:${NGINX_APISERVER_PORT}
-    - --v=10
+    - --api-servers=https://${NGINX_IP}:${NGINX_APISERVER_SPORT}
+    - --kubeconfig=/etc/kubernetes/scheduler-kubeconfig
+    - --v=0
+    volumeMounts:
+    - mountPath: /etc/kubernetes
+      name: kubernetes-config
+      readOnly: true
+    - mountPath: /var/run/kubernetes
+      name: kubernetes-certs
+      readOnly: true
+  volumes:
+  - hostPath:
+      path: /etc/kubernetes
+    name: kubernetes-config
+  - hostPath:
+      path: /var/run/kubernetes
+    name: kubernetes-certs
 EOF
 
 # Create controller manager template file
@@ -142,17 +173,24 @@ spec:
     command:
     - /opt/kubernetes/km
     - controller-manager
-    - --master=http://${NGINX_IP}:${NGINX_APISERVER_PORT}
+    - --kubeconfig=/etc/kubernetes/controller-manager-kubeconfig
     - --cloud-provider=mesos
     - --cloud-config=/etc/kubernetes/mesos-cloud.conf
+    - --v=0
     volumeMounts:
     - mountPath: /etc/kubernetes
       name: kubernetes-config
+      readOnly: true
+    - mountPath: /var/run/kubernetes
+      name: kubernetes-certs
       readOnly: true
   volumes:
   - hostPath:
       path: /etc/kubernetes
     name: kubernetes-config
+  - hostPath:
+      path: /var/run/kubernetes
+    name: kubernetes-certs
 EOF
 
 cat <<EOF >/etc/kubernetes/mesos-cloud.conf
