@@ -141,6 +141,10 @@ spec:
     - --api-servers=https://${NGINX_IP}:${NGINX_APISERVER_SPORT}
     - --kubeconfig=/etc/kubernetes/scheduler-kubeconfig
     - --v=0
+    ports:
+    - containerPort: ${K8S_SCHEDULER_PORT}
+      hostPort: ${K8S_SCHEDULER_PORT}
+      name: http
     volumeMounts:
     - mountPath: /etc/kubernetes
       name: kubernetes-config
