@@ -9,4 +9,6 @@ docker run \
     -v `pwd`/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro \
     --name haproxy \
     -d haproxy:1.5 haproxy \
-    -f /usr/local/etc/haproxy/haproxy.cfg -d
+    -f /usr/local/etc/haproxy/haproxy.cfg
+
+# Add -d flag to turn on debugging mode
