@@ -140,6 +140,8 @@ spec:
     - --etcd-servers=http://${ETCD_IP}:${ETCD_PORT}
     - --api-servers=https://${NGINX_IP}:${NGINX_APISERVER_SPORT}
     - --kubeconfig=/etc/kubernetes/scheduler-kubeconfig
+    - --kubelet-kubeconfig=/etc/kubernetes/kubelet-kubeconfig
+    - --proxy-kubeconfig=/etc/kubernetes/proxy-kubeconfig
     - --v=0
     ports:
     - containerPort: ${K8S_SCHEDULER_PORT}
