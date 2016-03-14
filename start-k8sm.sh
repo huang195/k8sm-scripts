@@ -44,8 +44,8 @@ spec:
     - --tls-cert-file=/var/run/kubernetes/apiserver.pem
     - --tls-private-key-file=/var/run/kubernetes/apiserver-key.pem
     - --client-ca-file=/var/run/kubernetes/ca.pem
-	- --authorization-mode=Webhook
-	- --authorization-webhook-config-file=/etc/kubernetes/webhook-config
+    - --authorization-mode=Webhook
+    - --authorization-webhook-config-file=/etc/kubernetes/webhook-config
     - --v=0
     ports:
     - containerPort: ${K8S_SECURE_PORT}
