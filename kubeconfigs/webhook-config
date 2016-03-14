@@ -1,0 +1,18 @@
+clusters:
+ - name: name-of-remote-authz-service
+   cluster:
+     certificate-authority: /var/run/kubernetes/ca.pem   # CA for verifying the remote service.
+     server: https://10.143.100.209:8888/authorize            # URL of remote service to query. Must use 'https'.
+
+users:
+ - name: name-of-api-server
+   user:
+     client-certificate: /var/run/kubernetes/apiserver.pem  # cert for the webhook plugin to use
+     client-key: /var/run/kubernetes/apiserver-key.pem      # key matching the cert
+
+current-context: ctx
+contexts:
+- context:
+    cluster: name-of-remote-authz-service
+    user: name-of-api-sever
+  name: ctx
