@@ -143,7 +143,7 @@ spec:
     - --api-servers=https://${NGINX_IP}:${NGINX_APISERVER_SPORT}
     - --kubeconfig=/etc/kubernetes/scheduler-kubeconfig
     - --kubelet-kubeconfig=/etc/kubernetes/kubelet-kubeconfig
-    - --proxy-kubeconfig=/etc/kubernetes/proxy-kubeconfig
+    - --run-proxy=false
     - --v=0
     ports:
     - containerPort: ${K8S_SCHEDULER_PORT}
