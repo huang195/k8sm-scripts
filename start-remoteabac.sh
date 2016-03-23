@@ -28,7 +28,7 @@ docker run -p ${RABAC_PORT}:${RABAC_PORT} \
         --name remoteabac \
         -d \
         haih/remoteabac \
-        --address=:8888 \
+        --address=:${RABAC_PORT} \
         --tls-cert-file=/var/run/kubernetes/apiserver.pem \
         --tls-private-key-file=/var/run/kubernetes/apiserver-key.pem \
         --authorization-policy-file=etcd@http://${ETCD_IP}:${ETCD_PORT}/abac-policy
