@@ -4,6 +4,7 @@
 
 docker run \
     -p $NGINX_APISERVER_SPORT:$NGINX_APISERVER_SPORT \
+	-p $NGINX_RABAC_SPORT:$NGINX_RABAC_SPORT \
     -p $NGINX_APISERVER_PORT:$NGINX_APISERVER_PORT \
     -p $NGINX_SCHEDULER_PORT:$NGINX_SCHEDULER_PORT \
     -v `pwd`/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro \
