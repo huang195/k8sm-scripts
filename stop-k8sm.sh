@@ -2,6 +2,7 @@
 
 # Finally kill the kubelet itself
 killall -9 kubelet
+service kubelet stop
 
 # Delete the kubernetes master components
 rm -f /etc/kubernetes/manifests/*
