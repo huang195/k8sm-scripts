@@ -6,6 +6,6 @@ spec:
   selector:
     app: guestbook
   ports:
-    protocol: TCP
+  - protocol: TCP
     port: 80
     targetPort: 80
